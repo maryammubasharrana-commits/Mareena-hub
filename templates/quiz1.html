@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PYTHON QUIZ </title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-cyan: #00f5ff;
+    --neon-pink: #ff006e;
+    --neon-green: #39ff14;
+    --neon-yellow: #ffff00;
+    --dark-bg: #030712;
+    --panel-bg: rgba(0, 245, 255, 0.04);
+    --border: rgba(0, 245, 255, 0.2);
+    --text-primary: #e0f7ff;
+    --text-dim: rgba(224,247,255,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridPan 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,0,110,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,245,255,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes gridPan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(50px); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── SCREENS ── */
+  .screen { width: 100%; display: none; animation: fadeIn 0.5s ease; }
+  .screen.active { display: flex; flex-direction: column; align-items: center; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── LOGO ── */
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px var(--neon-cyan), 0 0 60px rgba(0,245,255,0.4);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .logo span { color: var(--neon-pink); text-shadow: 0 0 20px var(--neon-pink), 0 0 60px rgba(255,0,110,0.4); }
+
+  .tagline {
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  /* ── PANEL ── */
+  .panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+    width: 100%;
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+
+  .panel::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 20px; right: 20px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  }
+
+  /* ── CATEGORY GRID ── */
+  .category-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .cat-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 16px;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cat-btn:hover, .cat-btn.selected {
+    border-color: var(--neon-cyan);
+    background: rgba(0,245,255,0.08);
+    color: var(--neon-cyan);
+    box-shadow: inset 0 0 20px rgba(0,245,255,0.05), 0 0 15px rgba(0,245,255,0.1);
+  }
+
+  .cat-icon { font-size: 1.4rem; }
+
+  /* ── DIFFICULTY ── */
+  .diff-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+    justify-content: center;
+  }
+
+  .diff-btn {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    color: var(--text-dim);
+  }
+
+  .diff-btn[data-diff="easy"].selected { border-color: var(--neon-green); color: var(--neon-green); background: rgba(57,255,20,0.06); }
+  .diff-btn[data-diff="medium"].selected { border-color: var(--neon-yellow); color: var(--neon-yellow); background: rgba(255,255,0,0.06); }
+  .diff-btn[data-diff="hard"].selected { border-color: var(--neon-pink); color: var(--neon-pink); background: rgba(255,0,110,0.06); }
+  .diff-btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    border-radius: 4px;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--neon-cyan);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+    z-index: -1;
+  }
+
+  .btn-primary:hover { color: var(--dark-bg); box-shadow: 0 0 30px rgba(0,245,255,0.4); }
+  .btn-primary:hover::before { transform: scaleX(1); }
+  .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ── HUD ── */
+  .hud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hud-item { text-align: center; }
+  .hud-label { font-size: 0.6rem; letter-spacing: 0.3em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 4px; }
+  .hud-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+  }
+
+  /* ── TIMER ── */
+  .timer-bar-wrap { width: 100%; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; margin-bottom: 24px; overflow: hidden; }
+  .timer-bar { height: 100%; background: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); transition: width 1s linear, background 0.5s; border-radius: 2px; }
+  .timer-bar.warn { background: var(--neon-yellow); box-shadow: 0 0 10px var(--neon-yellow); }
+  .timer-bar.danger { background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
+
+  /* ── QUESTION ── */
+  .question-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .question-text {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 32px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── OPTIONS ── */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .opt-btn {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 16px;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    line-height: 1.3;
+  }
+
+  .opt-key {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    color: var(--neon-cyan);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 3px;
+    padding: 2px 6px;
+    min-width: 26px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .opt-btn:hover:not(:disabled) {
+    border-color: var(--neon-cyan);
+    background: rgba(0,245,255,0.07);
+    transform: translateX(4px);
+  }
+
+  .opt-btn.correct { border-color: var(--neon-green) !important; background: rgba(57,255,20,0.1) !important; color: var(--neon-green); }
+  .opt-btn.correct .opt-key { border-color: var(--neon-green); color: var(--neon-green); }
+  .opt-btn.wrong { border-color: var(--neon-pink) !important; background: rgba(255,0,110,0.1) !important; color: var(--neon-pink); }
+  .opt-btn.wrong .opt-key { border-color: var(--neon-pink); color: var(--neon-pink); }
+  .opt-btn:disabled { cursor: not-allowed; }
+
+  /* ── LOADING ── */
+  .loading-wrap { text-align: center; padding: 40px; }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 2px solid var(--border);
+    border-top-color: var(--neon-cyan);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-family: 'Orbitron', monospace; font-size: 0.75rem; letter-spacing: 0.2em; color: var(--neon-cyan); animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+  /* ── RESULTS ── */
+  .score-ring {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 3px solid var(--border);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    margin: 0 auto 32px;
+    position: relative;
+  }
+
+  .score-ring::before {
+    content: '';
+    position: absolute; inset: -3px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: var(--neon-cyan);
+    border-right-color: var(--neon-cyan);
+    box-shadow: 0 0 25px rgba(0,245,255,0.5);
+    animation: spin 3s linear infinite;
+  }
+
+  .score-pct { font-family: 'Orbitron', monospace; font-size: 2.5rem; font-weight: 900; color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); }
+  .score-sub { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; }
+
+  .result-grade {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .result-msg { font-size: 1rem; color: var(--text-dim); text-align: center; margin-bottom: 32px; }
+
+  .stats-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    width: 100%;
+  }
+
+  .stat-box {
+    flex: 1;
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .stat-val { font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 700; }
+  .stat-label { font-size: 0.7rem; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-top: 4px; }
+
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 4px;
+  }
+  .btn-secondary:hover { border-color: var(--neon-pink); color: var(--neon-pink); }
+
+  /* ── FEEDBACK TOAST ── */
+  .toast {
+    position: fixed; top: 24px; right: 24px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    border: 1px solid;
+    z-index: 100;
+    transform: translateX(200%);
+    transition: transform 0.3s;
+  }
+  .toast.show { transform: translateX(0); }
+  .toast.correct-toast { border-color: var(--neon-green); color: var(--neon-green); background: rgba(57,255,20,0.1); }
+  .toast.wrong-toast { border-color: var(--neon-pink); color: var(--neon-pink); background: rgba(255,0,110,0.1); }
+
+  @media (max-width: 500px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .category-grid { grid-template-columns: 1fr 1fr; }
+    .stats-row { flex-direction: column; }
+  }
+  .back-btn{
+
+    position:absolute;
+    top:0;
+    left:1px;
+    background:#030712 ;
+    color:white;
+    padding:12px 22px;
+    border-radius:0 0 12px 12px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+}
+  .leaderboard-btn{
+
+    position:absolute;
+    top:0;
+    margin-left:90%;
+    background:#030712 ;
+    color:white;
+    padding:12px 22px;
+    border-radius:0 0 12px 12px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+   <div class="hero-buttons">
+
+                <a href="video1.html" class="back-btn">
+
+                    back
+                </a>
+</div>
+              <div class="solid-button">
+                <a href="leaderboard.html" class="leaderboard-btn">
+
+                    leaderboard
+                </a>
+            </div>
+
+<div class="container">
+
+  <!-- HOME SCREEN -->
+  <div class="screen active" id="homeScreen">
+    <div class="logo">MARENA<span>HUB</span></div>
+    <div class="tagline">PYTHON</div>
+
+    <div class="panel">
+      <div class="category-label">// Select Category</div>
+      <div class="category-grid">
+      <button class="cat-btn selected" data-cat="Python Programming">
+    <span class="cat-icon">🐍</span> Python Programming
+</button>
+      </div>
+
+      <div class="category-label">// Difficulty Level</div>
+      <div class="diff-row">
+        <button class="diff-btn" data-diff="easy" onclick="selectDiff(this)">Easy</button>
+        <button class="diff-btn selected" data-diff="medium" onclick="selectDiff(this)">Medium</button>
+        <button class="diff-btn" data-diff="hard" onclick="selectDiff(this)">Hard</button>
+      </div>
+
+      <div style="text-align:center;">
+        <button class="btn-primary" onclick="startGame()">INITIALIZE GAME</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING SCREEN -->
+  <div class="screen" id="loadingScreen">
+    <div class="panel">
+      <div class="loading-wrap">
+        <div class="spinner"></div>
+        <div class="loading-text">GENERATING QUESTIONS...</div>
+        <div style="margin-top:12px; font-size:0.8rem; color:var(--text-dim);">LOADING PYTHON PROGRAMMING QUESTIONS...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="screen" id="quizScreen">
+    <div class="hud">
+      <div class="hud-item">
+        <div class="hud-label">Score</div>
+        <div class="hud-value" id="scoreDisplay">0</div>
+      </div>
+      <div class="hud-item">
+        <div class="hud-label">Streak</div>
+        <div class="hud-value" id="streakDisplay" style="color:var(--neon-pink)">0🔥</div>
+      </div>
+      <div class="hud-item">
+        <div class="hud-label">Lives</div>
+        <div class="hud-value" id="livesDisplay">❤️❤️❤️</div>
+      </div>
+    </div>
+
+    <div class="panel" style="width:100%">
+      <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar"></div></div>
+      <div class="question-num" id="questionNum">QUESTION 1 / 25</div>
+      <div class="question-text" id="questionText">Loading...</div>
+      <div class="options-grid" id="optionsGrid"></div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="resultsScreen">
+    <div class="logo" style="font-size:2rem; margin-bottom:8px">RESULTS</div>
+    <div class="tagline" style="margin-bottom:28px">Mission Complete</div>
+
+    <div class="panel">
+      <div class="score-ring">
+        <div class="score-pct" id="resPct">0%</div>
+        <div class="score-sub" id="resFraction">0/25</div>
+      </div>
+      <div class="result-grade" id="resGrade"></div>
+      <div class="result-msg" id="resMsg"></div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val" style="color:var(--neon-green)" id="statCorrect">0</div>
+          <div class="stat-label">Correct</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" style="color:var(--neon-pink)" id="statWrong">0</div>
+          <div class="stat-label">Wrong</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" style="color:var(--neon-cyan)" id="statScore">0</div>
+          <div class="stat-label">Score</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" style="color:var(--neon-yellow)" id="statTime">0s</div>
+          <div class="stat-label">Avg Time</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="startGame()">PLAY AGAIN</button>
+        <button class="btn-secondary" onclick="showScreen('homeScreen')">CHANGE LEVEL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── STATE ──
+let questions = [];
+let currentQ = 0;
+let score = 0;
+let streak = 0;
+let lives = 3;
+let timer = null;
+let timeLeft = 0;
+let timeTaken = [];
+let selectedDifficulty = 'medium';
+const TOTAL_QUESTIONS = 25;
+const TIME_PER_Q = 20;
+
+// ── EASY QUESTIONS ──
+const easyQuestions = [ 
+    {
+      question: "Which keyword is used to define a function in Python?",
+      options: ["A) func", "B) define", "C) def", "D) function"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print(2 + 3 * 4)?",
+      options: ["A) 20", "B) 14", "C) 24", "D) 18"],
+      correct: 1
+    },
+    {
+      question: "Which data type stores True or False values?",
+      options: ["A) int", "B) string", "C) float", "D) bool"],
+      correct: 3
+    },
+    {
+      question: "How do you create a list in Python?",
+      options: ["A) {}", "B) ()", "C) []", "D) <>"],
+      correct: 2
+    },
+    {
+      question: "Which function displays output on the screen?",
+      options: ["A) input()", "B) show()", "C) print()", "D) display()"],
+      correct: 2
+    },
+    {
+      question: "What symbol is used for comments in Python?",
+      options: ["A) //", "B) #", "C) /*", "D) --"],
+      correct: 1
+    },
+    {
+      question: "Which function is used to get user input?",
+      options: ["A) read()", "B) get()", "C) input()", "D) scan()"],
+      correct: 2
+    },
+    {
+      question: "What is the output of len('Python')?",
+      options: ["A) 5", "B) 6", "C) 7", "D) 8"],
+      correct: 1
+    },
+    {
+      question: "Which operator is used for exponentiation?",
+      options: ["A) ^", "B) **", "C) //", "D) %"],
+      correct: 1
+    },
+    {
+      question: "Which loop repeats while a condition is true?",
+      options: ["A) for", "B) repeat", "C) while", "D) do"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print(type(5))?",
+      options: ["A) int", "B) float", "C) string", "D) bool"],
+      correct: 0
+    },
+    {
+      question: "Which keyword is used for decision making?",
+      options: ["A) choose", "B) if", "C) switch", "D) when"],
+      correct: 1
+    },
+    {
+      question: "What is the result of 10 // 3?",
+      options: ["A) 3.33", "B) 3", "C) 4", "D) 1"],
+      correct: 1
+    },
+    {
+      question: "Which collection is ordered and changeable?",
+      options: ["A) Set", "B) Tuple", "C) List", "D) Dictionary"],
+      correct: 2
+    },
+    {
+      question: "Which collection cannot be modified after creation?",
+      options: ["A) List", "B) Dictionary", "C) Tuple", "D) Set"],
+      correct: 2
+    },
+    {
+      question: "Which function converts text to an integer?",
+      options: ["A) str()", "B) int()", "C) float()", "D) bool()"],
+      correct: 1
+    },
+    {
+      question: "What is the output of print('Hi' * 3)?",
+      options: ["A) HiHiHi", "B) Hi3", "C) Error", "D) 9"],
+      correct: 0
+    },
+    {
+      question: "Which operator checks equality?",
+      options: ["A) =", "B) ===", "C) ==", "D) !="],
+      correct: 2
+    },
+    {
+      question: "Which data type stores decimal numbers?",
+      options: ["A) int", "B) bool", "C) float", "D) list"],
+      correct: 2
+    },
+    {
+      question: "Which keyword exits a loop immediately?",
+      options: ["A) stop", "B) end", "C) break", "D) return"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print(5 % 2)?",
+      options: ["A) 2", "B) 1", "C) 0", "D) 5"],
+      correct: 1
+    },
+    {
+      question: "Which method adds an item to a list?",
+      options: ["A) add()", "B) insert()", "C) append()", "D) push()"],
+      correct: 2
+    },
+    {
+      question: "Which keyword is used to import a module?",
+      options: ["A) include", "B) using", "C) import", "D) require"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print('Python'[0])?",
+      options: ["A) P", "B) y", "C) n", "D) Error"],
+      correct: 0
+    },
+    {
+      question: "Which function returns the largest value?",
+      options: ["A) high()", "B) max()", "C) largest()", "D) top()"],
+      correct: 1
+    }
+  
+ ];
+
+// ── MEDIUM QUESTIONS ──
+const mediumQuestions = [ 
+    {
+      question: "Which keyword is used to create a function in Python?",
+      options: ["A) function", "B) def", "C) func", "D) define"],
+      correct: 1
+    },
+    {
+      question: "What is the output of print(10 // 3)?",
+      options: ["A) 3.33", "B) 3", "C) 4", "D) 1"],
+      correct: 1
+    },
+    {
+      question: "Which data type is immutable?",
+      options: ["A) List", "B) Dictionary", "C) Tuple", "D) Set"],
+      correct: 2
+    },
+    {
+      question: "What does len([1,2,3,4]) return?",
+      options: ["A) 3", "B) 4", "C) 5", "D) Error"],
+      correct: 1
+    },
+    {
+      question: "Which operator checks equality?",
+      options: ["A) =", "B) !=", "C) ==", "D) ==="],
+      correct: 2
+    },
+    {
+      question: "What is the output of print(type(3.14))?",
+      options: ["A) int", "B) float", "C) str", "D) bool"],
+      correct: 1
+    },
+    {
+      question: "Which function is used to get input from a user?",
+      options: ["A) read()", "B) get()", "C) input()", "D) scan()"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print('Python'[2])?",
+      options: ["A) P", "B) t", "C) y", "D) h"],
+      correct: 1
+    },
+    {
+      question: "Which loop is used when the number of iterations is known?",
+      options: ["A) while", "B) do-while", "C) for", "D) repeat"],
+      correct: 2
+    },
+    {
+      question: "What is the result of 17 % 5?",
+      options: ["A) 2", "B) 3", "C) 4", "D) 5"],
+      correct: 0
+    },
+    {
+      question: "Which method adds an item to the end of a list?",
+      options: ["A) insert()", "B) add()", "C) append()", "D) push()"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print(bool(0))?",
+      options: ["A) True", "B) False", "C) 0", "D) Error"],
+      correct: 1
+    },
+    {
+      question: "Which keyword is used to exit a loop?",
+      options: ["A) stop", "B) return", "C) break", "D) exit"],
+      correct: 2
+    },
+    {
+      question: "Which collection stores key-value pairs?",
+      options: ["A) List", "B) Tuple", "C) Set", "D) Dictionary"],
+      correct: 3
+    },
+    {
+      question: "What is the output of print(2 ** 4)?",
+      options: ["A) 8", "B) 16", "C) 12", "D) 6"],
+      correct: 1
+    },
+    {
+      question: "Which function converts a string into an integer?",
+      options: ["A) str()", "B) float()", "C) int()", "D) bool()"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print('Hi' * 2)?",
+      options: ["A) HiHi", "B) Hi2", "C) Error", "D) 4"],
+      correct: 0
+    },
+    {
+      question: "Which statement is used for decision making?",
+      options: ["A) for", "B) while", "C) if", "D) def"],
+      correct: 2
+    },
+    {
+      question: "Which method removes an item from a list?",
+      options: ["A) remove()", "B) delete()", "C) erase()", "D) clearone()"],
+      correct: 0
+    },
+    {
+      question: "What is the output of print(len('Programming'))?",
+      options: ["A) 10", "B) 11", "C) 12", "D) 9"],
+      correct: 1
+    },
+    {
+      question: "Which keyword imports a module?",
+      options: ["A) include", "B) using", "C) require", "D) import"],
+      correct: 3
+    },
+    {
+      question: "What is the output of print(5 > 3 and 2 < 1)?",
+      options: ["A) True", "B) False", "C) 1", "D) Error"],
+      correct: 1
+    },
+    {
+      question: "Which symbol starts a comment in Python?",
+      options: ["A) //", "B) #", "C) /*", "D) --"],
+      correct: 1
+    },
+    {
+      question: "Which function returns the largest value?",
+      options: ["A) high()", "B) largest()", "C) max()", "D) top()"],
+      correct: 2
+    },
+    {
+      question: "What is the output of print(list(range(3)))?",
+      options: ["A) [1,2,3]", "B) [0,1,2]", "C) [0,1,2,3]", "D) [1,2]"],
+      correct: 1
+    }
+  ];
+
+// ── Hard QUESTIONS ──
+const hardQuestions = [
+  {
+    question: "What is the output of print([1,2,3][1])?",
+    options: ["A) 1", "B) 2", "C) 3", "D) Error"],
+    correct: 1
+  },
+  {
+    question: "What is the output of print(type({}))?",
+    options: ["A) list", "B) tuple", "C) dict", "D) set"],
+    correct: 2
+  },
+  {
+    question: "Which keyword is used to handle exceptions?",
+    options: ["A) catch", "B) error", "C) try", "D) handle"],
+    correct: 2
+  },
+  {
+    question: "What is the output of print(5 == 5.0)?",
+    options: ["A) False", "B) True", "C) Error", "D) None"],
+    correct: 1
+  },
+  {
+    question: "What is the output of len({1,2,2,3})?",
+    options: ["A) 4", "B) 3", "C) 2", "D) Error"],
+    correct: 1
+  },
+  {
+    question: "Which method removes and returns the last list item?",
+    options: ["A) delete()", "B) remove()", "C) pop()", "D) clear()"],
+    correct: 2
+  },
+  {
+    question: "What is the output of print('python'.upper())?",
+    options: ["A) Python", "B) PYTHON", "C) python", "D) Error"],
+    correct: 1
+  },
+  {
+    question: "What does range(1,5) generate?",
+    options: ["A) 1,2,3,4", "B) 1,2,3,4,5", "C) 0,1,2,3,4", "D) 0,1,2,3,4,5"],
+    correct: 0
+  },
+  {
+    question: "Which operator checks object identity?",
+    options: ["A) ==", "B) is", "C) in", "D) !="],
+    correct: 1
+  },
+  {
+    question: "What is the output of print(bool(''))?",
+    options: ["A) True", "B) False", "C) None", "D) Error"],
+    correct: 1
+  },
+  {
+    question: "Which function returns both index and value during iteration?",
+    options: ["A) range()", "B) enumerate()", "C) index()", "D) iterate()"],
+    correct: 1
+  },
+  {
+    question: "What is the output of print(10 % 4)?",
+    options: ["A) 2", "B) 1", "C) 3", "D) 4"],
+    correct: 0
+  },
+  {
+    question: "Which collection type cannot contain duplicate values?",
+    options: ["A) List", "B) Tuple", "C) Dictionary", "D) Set"],
+    correct: 3
+  },
+  {
+    question: "What is the output of print(min([8,4,9,2]))?",
+    options: ["A) 8", "B) 4", "C) 2", "D) 9"],
+    correct: 2
+  },
+  {
+    question: "What keyword is used to create a class?",
+    options: ["A) object", "B) define", "C) class", "D) struct"],
+    correct: 2
+  },
+  {
+    question: "What is the output of print('abcdef'[1:4])?",
+    options: ["A) abc", "B) bcd", "C) bcde", "D) cde"],
+    correct: 1
+  },
+  {
+    question: "Which method adds key-value pairs to a dictionary?",
+    options: ["A) append()", "B) update()", "C) insert()", "D) add()"],
+    correct: 1
+  },
+  {
+    question: "What is the output of print(abs(-15))?",
+    options: ["A) -15", "B) 15", "C) 0", "D) Error"],
+    correct: 1
+  },
+  {
+    question: "What is the output of print(3 in [1,2,3,4])?",
+    options: ["A) True", "B) False", "C) 3", "D) Error"],
+    correct: 0
+  },
+  {
+    question: "Which keyword skips the current loop iteration?",
+    options: ["A) break", "B) stop", "C) continue", "D) pass"],
+    correct: 2
+  },
+  {
+    question: "What is the output of round(3.75)?",
+    options: ["A) 3", "B) 4", "C) 3.5", "D) 5"],
+    correct: 1
+  },
+  {
+    question: "Which function sorts a list and returns a new sorted list?",
+    options: ["A) sort()", "B) arrange()", "C) sorted()", "D) order()"],
+    correct: 2
+  },
+  {
+    question: "What is the output of print('hello'.replace('h','H'))?",
+    options: ["A) hello", "B) Hello", "C) HELLO", "D) Error"],
+    correct: 1
+  },
+  {
+    question: "What is the output of print(sum([1,2,3,4]))?",
+    options: ["A) 10", "B) 9", "C) 24", "D) Error"],
+    correct: 0
+  },
+  {
+    question: "Which built-in function returns the data type of a variable?",
+    options: ["A) datatype()", "B) type()", "C) typeof()", "D) kind()"],
+    correct: 1
+  }
+];
+
+// ── UI HELPERS ──
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function selectDiff(btn) {
+  document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedDifficulty = btn.dataset.diff;
+}
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type}`;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// ── TIMER ──
+function startTimer() {
+  const start = Date.now();
+  timeLeft = TIME_PER_Q;
+  const bar = document.getElementById('timerBar');
+  bar.style.width = '100%';
+  bar.className = 'timer-bar';
+
+  clearInterval(timer);
+  timer = setInterval(() => {
+    timeLeft = TIME_PER_Q - Math.floor((Date.now() - start) / 1000);
+    const pct = (timeLeft / TIME_PER_Q) * 100;
+    bar.style.width = pct + '%';
+
+    if (pct < 30) bar.className = 'timer-bar danger';
+    else if (pct < 60) bar.className = 'timer-bar warn';
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      handleAnswer(null);
+    }
+  }, 200);
+}
+
+// ── GAME FLOW ──
+async function startGame() {
+  score = 0;
+  streak = 0;
+  lives = 3;
+  currentQ = 0;
+  timeTaken = [];
+
+  showScreen('loadingScreen');
+
+  setTimeout(() => {
+
+    if (selectedDifficulty === "easy") {
+      questions = [...easyQuestions];
+    }
+    else if (selectedDifficulty === "medium") {
+      questions = [...mediumQuestions];
+    }
+    else {
+      questions = [...hardQuestions];
+    }
+
+    showScreen('quizScreen');
+    renderQuestion();
+
+  }, 1000);
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('questionNum').textContent = `QUESTION ${currentQ + 1} / ${TOTAL_QUESTIONS}`;
+  document.getElementById('questionText').textContent = q.question;
+  document.getElementById('scoreDisplay').textContent = score;
+  document.getElementById('streakDisplay').textContent = streak > 0 ? `${streak}🔥` : '0';
+  document.getElementById('livesDisplay').textContent = '❤️'.repeat(lives) + '🖤'.repeat(3 - lives);
+
+  const grid = document.getElementById('optionsGrid');
+  const keys = ['A', 'B', 'C', 'D'];
+  grid.innerHTML = q.options.map((opt, i) => `
+    <button class="opt-btn" onclick="handleAnswer(${i})">
+      <span class="opt-key">${keys[i]}</span>
+      <span>${opt.replace(/^[A-D]\)\s*/, '')}</span>
+    </button>
+  `).join('');
+
+  startTimer();
+}
+
+function handleAnswer(idx) {
+  clearInterval(timer);
+  const q = questions[currentQ];
+  const elapsed = TIME_PER_Q - timeLeft;
+  timeTaken.push(Math.max(elapsed, 1));
+
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.disabled = true);
+
+  if (idx === null) {
+    // Time out
+    btns[q.correct].classList.add('correct');
+    showToast('⏰ TIME UP!', 'wrong-toast');
+    lives--;
+    streak = 0;
+  } else if (idx === q.correct) {
+    btns[idx].classList.add('correct');
+    const bonus = Math.ceil(timeLeft / 5);
+    const points = 100 + bonus * 10 + streak * 20;
+    score += points;
+    streak++;
+    showToast(`+${points} pts 🎯`, 'correct-toast');
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.correct].classList.add('correct');
+    showToast('❌ WRONG!', 'wrong-toast');
+    lives--;
+    streak = 0;
+  }
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ >= TOTAL_QUESTIONS || lives <= 0) {
+      showResults();
+    } else {
+      renderQuestion();
+    }
+  }, 1500);
+}
+
+function showResults() {
+  const correct = questions.slice(0, currentQ).filter((_, i) => {
+    // Count from recorded history - approximate
+    return true;
+  }).length;
+
+  // Recalculate correct answers
+  const pct = Math.round((score / (TOTAL_QUESTIONS * 100)) * 100);
+  const actualCorrect = Math.min(currentQ, TOTAL_QUESTIONS) - (3 - lives);
+  const avgTime = timeTaken.length > 0 ? Math.round(timeTaken.reduce((a,b)=>a+b,0)/timeTaken.length) : 0;
+
+  let grade, msg, color;
+  if (pct >= 90) { grade = 'S RANK — NEURAL MASTER'; msg = 'Exceptional performance. Your knowledge is extraordinary.'; color = 'var(--neon-cyan)'; }
+  else if (pct >= 70) { grade = 'A RANK — EXPERT'; msg = 'Outstanding! You dominate this subject.'; color = 'var(--neon-green)'; }
+  else if (pct >= 50) { grade = 'B RANK — SKILLED'; msg = 'Good performance. Keep pushing your limits.'; color = 'var(--neon-yellow)'; }
+  else { grade = 'C RANK — INITIATE'; msg = 'Keep studying. The neural network grows stronger with practice.'; color = 'var(--neon-pink)'; }
+
+  document.getElementById('resPct').textContent = score + '';
+  document.getElementById('resPct').style.fontSize = '1.8rem';
+  document.getElementById('resFraction').textContent = `pts`;
+  document.getElementById('resGrade').textContent = grade;
+  document.getElementById('resGrade').style.color = color;
+  document.getElementById('resMsg').textContent = msg;
+  document.getElementById('statCorrect').textContent = Math.max(0, currentQ - (3-lives));
+  document.getElementById('statWrong').textContent = 3 - lives;
+  document.getElementById('statScore').textContent = score;
+  document.getElementById('statTime').textContent = avgTime + 's';
+
+  showScreen('resultsScreen');
+}
+
+
+// ── KEYBOARD CONTROLS ──
+document.addEventListener('keydown', e => {
+  if (document.getElementById('quizScreen').classList.contains('active')) {
+    const map = { 'a': 0, 'b': 1, 'c': 2, 'd': 3, '1': 0, '2': 1, '3': 2, '4': 3 };
+    const key = e.key.toLowerCase();
+    if (key in map) {
+      const btns = document.querySelectorAll('.opt-btn');
+      if (btns[map[key]] && !btns[map[key]].disabled) {
+        btns[map[key]].click();
+      }
+    }
+  }
+});
+
+let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+leaderboard.push({
+    quiz: "PYTHON",
+    score: score,
+    date: new Date().toLocaleDateString()
+});
+
+localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+</script>
+</body>
+</html>

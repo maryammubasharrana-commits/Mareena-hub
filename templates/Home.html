@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARENA HUB</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <!-- NAVBAR -->
+
+        <nav class="navbar">
+
+            <!-- LOGO -->
+
+            <div class="logo">
+
+                <img src="logo.png" alt="Logo">
+
+                <div class="logo-text">
+                    <h2>MARENA-HUB</h2>
+                    <p>Learning Platform</p>
+                </div>
+
+            </div>
+
+            <!-- NAV LINKS -->
+
+            <ul class="nav-links">
+
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+               <li><a href="content.html">Content</a></li>
+                <li><a href="account.html">Account</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li> <a href="sign.html">Sign out</a></li>
+            </ul>
+
+            <!-- SEARCH -->
+<div class="search-box">
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="Search...">
+
+    <span
+    class="search-icon"
+    id="searchBtn">
+
+    🔍
+
+    </span>
+
+</div>
+         </nav>
+
+           <!--IMAGE-->
+           <div class ="picture">
+            <img src = "homee.png" alt="picture">
+
+           </div>
+
+        <!-- HERO CONTENT -->
+
+        <div class="hero-content">  
+            <h1>MARENA.HUB</h1>
+
+            <p>
+               Welcome to MARENA-HUB.This website provide you interactive 
+               video lectures and quiz section.
+               To start journey with us click:
+            </p>
+            <div>
+
+            <a href="Content.html"
+            class = "next-btn">Next</a>
+        </div>
+
+    </section>
+     <script>
+    /* SEARCH FUNCTION */
+
+function performSearch(){
+
+    let value =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+      /* SEARCH PAGES */
+    if(value.includes("home")){
+        window.location.href = "home.html";
+    }
+    if(value.includes("content")){
+        window.location.href = "content.html";
+    }
+
+    if(value.includes("python")){
+        window.location.href = "video1.html";
+    }
+
+    else if(value.includes("html")){
+        window.location.href = "video2.html";
+    }
+
+    else if(value.includes("javascript")){
+        window.location.href = "video3.html";
+    }
+    else if(value.includes("css")){
+        window.location.href = "video4.html";
+    }
+
+    if(value.includes("learderboard")){
+        window.location.href = "leaderboard.html";
+    }
+
+    else if(value.includes("certificate")){
+        window.location.href = "certificate.html";
+    }
+    if(value.includes("feedback")){
+        window.location.href = "feedback.html";
+    }
+     if(value.includes("account")){
+        window.location.href = "account.html";
+    }
+    if(value.includes("contact")){
+        window.location.href = "contact.html";
+    }
+
+    if(value.includes("about")){
+        window.location.href = "about.html";
+    }
+
+    else{
+        alert("Page not found");
+    }
+}
+
+/* ENTER KEY SEARCH */
+
+document
+.getElementById("searchInput")
+
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+        performSearch();
+    }
+
+});
+
+/* MAGNIFYING GLASS CLICK SEARCH */
+
+document
+.getElementById("searchBtn")
+
+.addEventListener("click", function(){
+
+    performSearch();
+
+});
+</script>
+
+</body>
+
+</html>

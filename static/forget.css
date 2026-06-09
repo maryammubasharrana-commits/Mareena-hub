@@ -1,0 +1,226 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    background:#f4f7fb;
+}
+
+.container{
+    width:100%;
+    height:100vh;
+    display:flex;
+}
+
+/* LEFT SIDE */
+
+.left-side{
+    width:42%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#f4f7fb;
+}
+
+/* FORGOT BOX */
+
+.forgot-box{
+    width:420px;
+
+    background:white;
+
+    padding:50px 45px;
+
+    border-radius:28px;
+
+    box-shadow:0 12px 35px rgba(0,0,0,0.12);
+
+    text-align:center;
+}
+
+.forgot-box h1{
+    color:#071739;
+
+    font-size:40px;
+
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#666;
+
+    margin-bottom:32px;
+
+    line-height:1.5;
+}
+
+/* INPUT */
+
+.forgot-box input{
+    width:100%;
+
+    padding:16px;
+
+    margin:14px 0;
+
+    border:1px solid #d6dbe6;
+
+    border-radius:14px;
+
+    outline:none;
+
+    background:#f8faff;
+
+    font-size:15px;
+}
+
+.forgot-box input:focus{
+    border:1px solid #12357a;
+}
+
+/* BUTTON */
+
+.forgot-box button{
+    width:100%;
+
+    padding:16px;
+
+    margin-top:22px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#071739;
+
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.forgot-box button:hover{
+    background:#12357a;
+}
+
+/* BACK LOGIN */
+
+.back-login{
+    margin-top:20px;
+
+    color:#333;
+}
+
+.back-login a{
+    color:#12357a;
+
+    text-decoration:none;
+
+    font-weight:bold;
+}
+
+/* RIGHT SIDE */
+
+.right-side{
+    width:58%;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.right-side img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+/* DARK OVERLAY */
+
+.overlay{
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(7,23,57,0.80);
+
+    z-index:1;
+}
+
+/* BRAND HEADER */
+
+.brand-header{
+    position:absolute;
+
+    top:35px;
+    left:60px;
+
+    z-index:2;
+
+    display:flex;
+    align-items:center;
+
+    gap:15px;
+}
+
+.brand-header img{
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    background:white;
+
+    padding:5px;
+}
+
+.brand-name{
+    color:white;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    letter-spacing:4px;
+}
+
+/* IMAGE TEXT */
+
+.image-text{
+    position:absolute;
+
+    bottom:80px;
+    left:60px;
+
+    z-index:2;
+
+    color:white;
+}
+
+.image-text h2{
+    font-size:52px;
+
+    margin-bottom:12px;
+}
+
+.image-text p{
+    color:#dbe4ff;
+
+    font-size:18px;
+
+    max-width:500px;
+
+    line-height:1.6;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Result</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='styling.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-nav">
+
+    <a href="/" class="nav-btn">🏠 Home</a>
+
+
+
+</div>
+
+    <div class="top-buttons">
+
+        <a href="/" class="btn">
+            ⬅ Back To Quiz
+        </a>
+
+        <a href="/leaderboard" class="btn">
+            🏆 Leaderboard
+        </a>
+
+    </div>
+
+    <h1>
+
+        Your Score:
+        {{ score }}/{{ total }}
+        
+
+    </h1>
+    <h2>
+    {% if status == "PASS" %}
+        <span style="color: green;">🎉 PASS</span>
+    {% else %}
+        <span style="color: red;">❌ FAIL</span>
+    {% endif %}
+</h2>
+
+<h3>
+    Percentage: {{ percentage }}%
+</h3>
+
+<h3>
+    Passing Criteria: 70%
+</h3>
+
+    {% for r in results %}
+
+    <div class="result-box">
+
+        <h3>
+
+            {{ loop.index }}.
+            {{ r.question }}
+
+        </h3>
+
+        <p>
+
+            <strong>Your Answer:</strong>
+            {{ r.user_answer }}
+
+        </p>
+
+        <p>
+
+            <strong>Correct Answer:</strong>
+            {{ r.correct_answer }}
+
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Forgot Password</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='forget.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-side">
+
+        <div class="forgot-box">
+
+            <h1>Forgot Password</h1>
+
+            <p class="subtitle">
+                Enter your email address to reset your password
+            </p>
+
+            <form method="POST" action="/forget">
+                <input type="email" name="email" placeholder="Email Address" required>
+
+                <button type="submit">
+                    Send Reset Link
+                </button>
+            </form>
+
+            <p class="back-login">
+                Back to
+                <a href="index.html">Sign In</a>
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-side">
+
+        <div class="overlay"></div>
+
+        <!-- LOGO + NAME -->
+
+        <div class="brand-header">
+
+            <img src="logo.png" alt="Logo">
+
+            <div class="brand-name">
+                MARINA HUB
+            </div>
+
+        </div>
+
+        <!-- IMAGE -->
+
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop"
+        alt="Study Image">
+
+        <!-- TEXT -->
+
+        <div class="image-text">
+
+            <h2>Recover Your Account</h2>
+
+            <p>
+                Reset your password securely and continue your learning journey.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

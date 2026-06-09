@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Leaderboard</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='styling.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top-buttons">
+
+        <a href="content.html" class="btn">
+            ⬅ Back To content
+        </a>
+
+    </div>
+
+    <h1>
+        🏆 Quiz Leaderboard
+    </h1>
+
+    <div class="leaderboard-container">
+
+    {% for user in leaderboard %}
+
+    <div class="leaderboard-row">
+
+        <div class="rank-box">
+
+            {% if loop.index == 1 %}
+            🥇 1
+            {% elif loop.index == 2 %}
+            🥈 2
+            {% elif loop.index == 3 %}
+            🥉 3
+            {% else %}
+            {{ loop.index }}
+            {% endif %}
+
+        </div>
+
+        <div class="name-box">
+
+            {{ user.username }}
+
+        </div>
+
+        <div class="score-box">
+
+            {{ user.score }}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

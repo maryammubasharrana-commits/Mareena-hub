@@ -1,0 +1,174 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background: white;
+    overflow-x: hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    width: 100%;
+    height: 90px;
+
+    background: #001f4d;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 40px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
+}
+
+/* LOGO */
+
+.logo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    padding: 5px;
+}
+
+.logo-text h2{
+    color: white;
+    font-size: 20px;
+}
+
+.logo-text p{
+    color: #d6d6d6;
+    font-size: 12px;
+}
+
+/* NAV LINKS */
+
+.nav-links{
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nav-links a:hover{
+    color: #4da6ff;
+}
+
+/* SEARCH */
+
+.search-box{
+    background: white;
+    border-radius: 25px;
+
+    padding: 8px 15px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box input{
+    border: none;
+    outline: none;
+}
+
+.search-box i{
+    color: #001f4d;
+}
+
+/* ================= IMAGE SECTION ================= */
+
+.picture{
+    width: 100%;
+    height: 50vh;
+
+    margin-top: 90px;
+
+    overflow: hidden;
+}
+
+.picture img{
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+/* ================= HERO CONTENT ================= */
+
+.hero-content{
+    width: 100%;
+
+    text-align: center;
+
+    padding: 50px 20px;
+}
+
+/* TITLE */
+
+.hero-content h1{
+    font-size: 50px;
+    color: #001f4d;
+
+    margin-bottom: 20px;
+
+    font-weight: bold;
+}
+
+/* PARAGRAPH */
+
+.hero-content p{
+    font-size: 24px;
+    color: #555;
+
+    margin-bottom: 35px;
+
+    line-height: 35px;
+}
+
+/* BUTTON */
+.next-btn{
+    display: inline-block;
+
+    padding: 15px 50px;
+
+    background:  #001f4d;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 35px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.next-btn:hover{
+    background:  #001f4d;
+}

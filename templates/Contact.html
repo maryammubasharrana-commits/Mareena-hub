@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - MARENA-HUB</title>
+    
+    <!-- EMBEDDED STYLES -->
+    <style>
+        /* ================= GLOBAL & LAYOUT ================= */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a1a33; /* Matches the dark blue of your navbar */
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 30px;
+            background: rgba(10, 26, 51, 0.95);
+            backdrop-filter: blur(10px);
+
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid gold;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .logo small {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .nav-links a {
+            color: white;
+            margin: 0 12px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            color: gold;
+            transform: scale(1.1);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 10px 40px 10px 15px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
+        /* MAGNIFYING GLASS */
+        .search-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1f3b5c;   
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        /* ================= CONTACT CONTENT LAYOUT ================= */
+        .contact-container {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .contact-header h1 {
+            font-size: 36px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .contact-header p {
+            font-size: 16px;
+            color: #a0aec0;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Info Card Panel (Left side) */
+        .info-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-card h2 {
+            font-size: 22px;
+            margin-top: 0;
+            color: gold;
+            margin-bottom: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-item .icon {
+            font-size: 20px;
+            background: rgba(255, 217, 0, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+            line-height: 1;
+        }
+
+        .info-text h4 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            color: #ffffff;
+        }
+
+        .info-text p {
+            margin: 0;
+            font-size: 14px;
+            color: #a0aec0;
+            word-break: break-all;
+        }
+
+        /* Form Panel (Right side) */
+        .contact-form-box {
+            background: #ffffff; /* Crisp white panel for dynamic contrast */
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            color: #333333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0a1a33;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #0a1a33;
+            box-shadow: 0 0 0 3px rgba(10, 26, 51, 0.15);
+        }
+
+        .submit-btn {
+            background-color: #0a1a33;
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: gold;
+            color: #0a1a33;
+            box-shadow: 0 4px 15px rgba(255, 217, 0, 0.4);
+        }
+
+        /* Responsive Breakpoint */
+        @media (max-width: 768px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="logo">
+            <div>
+                <h2>MARENA-HUB</h2>
+                <small>Learning Platform</small>
+            </div>
+        </div>
+
+       <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+          <a href="content.html">Content</a>
+       <a href="account.html">Account</a>
+        <a href="leaderboard.html">Leaderboard</a>
+          <a href="feedback.html">Feedback</a>
+           <a href="sign.html">Sign out</a>
+    </nav>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <span class="search-icon" id="searchBtn">🔍</span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTACT CONTAINER -->
+    <main class="contact-container">
+        <div class="contact-header">
+            <h1>Get In Touch</h1>
+            <p>Have questions about courses, certifications, or tracking progress? Let us know!</p>
+        </div>
+
+        <div class="contact-wrapper">
+            <!-- Left Panel: Contact Info -->
+            <section class="info-card">
+                <h2>Contact Information</h2>
+                
+                <div class="info-item">
+                    <div class="icon">✉️</div>
+                    <div class="info-text">
+                        <h4>Email Us</h4>
+                        <p>marenahubofficial@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="icon">⏰</div>
+                    <div class="info-text">
+                        <h4>Support Hours</h4>
+                        <p>Monday – Friday<br>9:00 AM – 5:00 PM</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Contact Form -->
+            <section class="contact-form-box">
+                <!-- Action routes data straight to our Flask app endpoint -->
+                <form action="/contact" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="username@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="How can we help?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+</body>
+  <script>
+    /* SEARCH FUNCTION */
+
+function performSearch(){
+
+    let value =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    /* SEARCH PAGES */
+    if(value.includes("home")){
+        window.location.href = "home.html";
+    }
+    if(value.includes("content")){
+        window.location.href = "content.html";
+    }
+
+    if(value.includes("python")){
+        window.location.href = "video1.html";
+    }
+
+    else if(value.includes("html")){
+        window.location.href = "video2.html";
+    }
+
+    else if(value.includes("javascript")){
+        window.location.href = "video3.html";
+    }
+    else if(value.includes("css")){
+        window.location.href = "video4.html";
+    }
+    if(value.includes("learderboard")){
+        window.location.href = "leaderboard.html";
+    }
+
+    else if(value.includes("certificate")){
+        window.location.href = "certificate.html";
+    }
+    if(value.includes("feedback")){
+        window.location.href = "feedback.html";
+    }
+       if(value.includes("account")){
+        window.location.href = "account.html";
+    }
+    if(value.includes("contact")){
+        window.location.href = "contact.html";
+    }
+
+    if(value.includes("about")){
+        window.location.href = "about.html";
+    }
+    else{
+        alert("Page not found");
+    }
+}
+
+/* ENTER KEY SEARCH */
+
+document
+.getElementById("searchInput")
+
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+        performSearch();
+    }
+
+});
+
+/* MAGNIFYING GLASS CLICK SEARCH */
+
+document
+.getElementById("searchBtn")
+
+.addEventListener("click", function(){
+
+    performSearch();
+
+});
+</script>
+</html>
+
+
+</html>
+

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - MARENA-HUB</title>
+    
+    <!-- EMBEDDED STYLES -->
+    <style>
+        /* ================= GLOBAL & LAYOUT ================= */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a1a33; /* Matches the dark blue of your navbar */
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 30px;
+            background: rgba(10, 26, 51, 0.95);
+            backdrop-filter: blur(10px);
+
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid gold;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .logo small {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .nav-links a {
+            color: white;
+            margin: 0 12px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            color: gold;
+            transform: scale(1.1);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 10px 40px 10px 15px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
+        /* MAGNIFYING GLASS */
+        .search-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1f3b5c;   
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        /* ================= ABOUT CONTENT CONTAINER ================= */
+        .about-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            min-height: calc(100vh - 95px); 
+            box-sizing: border-box;
+        }
+
+        /* The Content Box */
+        .about-card {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.96); /* Clean white background */
+            max-width: 800px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            overflow: hidden; 
+        }
+
+        /* Translucent Image Underlay Layer */
+        .card-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* REPLACE 'your-about-image.jpg' WITH YOUR ACTUAL IMAGE FILE PATH */
+            background-image: url('your-about-image.jpg'); 
+            
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12; /* Lower number = more see-through, Higher = more visible */
+            z-index: 1;
+        }
+
+        /* Foreground Text Content */
+        .about-content {
+            position: relative;
+            z-index: 2; /* Forces text to layer strictly above the translucent background */
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .about-content h1 {
+            color: #0a1a33; 
+            font-size: 32px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .about-content .tagline {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .about-content .divider {
+            border: 0;
+            height: 3px;
+            background: gold; 
+            width: 80px;
+            margin: 0 auto 30px auto;
+            border-radius: 2px;
+        }
+
+        .about-content p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        /* Quick-Facts Badges at Bottom */
+        .about-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            background: rgba(10, 26, 51, 0.05);
+            padding: 15px 25px;
+            border-radius: 10px;
+            min-width: 100px;
+            border: 1px solid rgba(10, 26, 51, 0.1);
+        }
+
+        .feature span {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .feature h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #0a1a33;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="logo">
+            <div>
+                <h2>MARENA-HUB</h2>
+                <small>Learning Platform</small>
+            </div>
+        </div>
+
+         <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+          <a href="content.html">Content</a>
+       <a href="account.html">Account</a>
+        <a href="leaderboard.html">Leaderboard</a>
+          <a href="feedback.html">Feedback</a>
+           <a href="sign.html">Sign out</a>
+    </nav>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <span class="search-icon" id="searchBtn">🔍</span>
+        </div>
+    </header>
+
+    <!-- ABOUT PAGE CONTENT -->
+    <main class="about-container">
+        <section class="about-card">
+            
+            <!-- This div fetches your image and applies the translucent background style rules -->
+            <div class="card-bg-image"></div>
+            
+            <div class="about-content">
+                <h1>About MARENA-HUB</h1>
+                <p class="tagline">Empowering minds through structured, accessible tech education.</p>
+                
+                <hr class="divider">
+                
+                <p>Welcome to <strong>MARENA-HUB</strong>, your ultimate companion in mastering modern programming languages and web technologies. Whether you are taking your first steps into coding with HTML and CSS, or diving deep into logic with Python and JavaScript, we provide the path to clear, structured mastery.</p>
+                
+                <p>Our platform combines bite-sized video tutorials, interactive quizzes, and a competitive leaderboard to keep your learning journey engaging, structured, and rewarding. Complete your paths, earn your certificates, and step confidently into your future as a developer.</p>
+                
+                <div class="about-features">
+                    <div class="feature">
+                        <span>🚀</span>
+                        <h3>Learn</h3>
+                    </div>
+                    <div class="feature">
+                        <span>🏆</span>
+                        <h3>Compete</h3>
+                    </div>
+                    <div class="feature">
+                        <span>📜</span>
+                        <h3>Certify</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
+

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - MARENA-HUB</title>
+    
+    <!-- EMBEDDED STYLES -->
+    <style>
+        /* ================= GLOBAL & LAYOUT ================= */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a1a33; /* Matches the dark blue of your navbar */
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 30px;
+            background: rgba(10, 26, 51, 0.95);
+            backdrop-filter: blur(10px);
+
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid gold;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .logo small {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .nav-links a {
+            color: white;
+            margin: 0 12px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            color: gold;
+            transform: scale(1.1);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            padding: 10px 40px 10px 15px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+
+        /* MAGNIFYING GLASS */
+        .search-icon {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #1f3b5c;   
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        /* ================= DASHBOARD LAYOUT ================= */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Profile Summary Card (Left side) */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid gold;
+            margin: 0 auto 20px auto;
+            object-fit: cover;
+        }
+
+        .profile-card h2 {
+            font-size: 24px;
+            margin: 0 0 5px 0;
+            color: #ffffff;
+        }
+
+        .profile-card .username {
+            font-size: 14px;
+            color: gold;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-box .number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            display: block;
+        }
+
+        .stat-box .label {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 2px;
+            display: block;
+        }
+
+        /* Control & Content Panel (Right side) */
+        .settings-panel {
+            background: #ffffff; /* Contrast white background container */
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            color: #333333;
+        }
+
+        .settings-panel h3 {
+            font-size: 20px;
+            color: #0a1a33;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0a1a33;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+            color: #333333;
+        }
+
+        .form-group input:focus {
+            border-color: #0a1a33;
+            box-shadow: 0 0 0 3px rgba(10, 26, 51, 0.15);
+        }
+
+        .save-btn {
+            background-color: #0a1a33;
+            color: #ffffff;
+            border: none;
+            padding: 13px 25px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .save-btn:hover {
+            background-color: gold;
+            color: #0a1a33;
+            box-shadow: 0 4px 12px rgba(255, 217, 0, 0.3);
+        }
+
+        /* Progress Tracks Section */
+        .courses-section {
+            margin-top: 40px;
+        }
+
+        .course-progress-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .course-info h4 {
+            margin: 0 0 5px 0;
+            color: #0a1a33;
+            font-size: 16px;
+        }
+
+        .progress-bar-container {
+            width: 180px;
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #0a1a33; /* Dark blue fill color */
+            border-radius: 4px;
+        }
+
+        .course-progress-card .percentage {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            margin-left: 15px;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Responsive Configuration */
+        @media (max-width: 900px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="logo">
+            <div>
+                <h2>MARENA-HUB</h2>
+                <small>Learning Platform</small>
+            </div>
+        </div>
+
+      <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+          <a href="content.html">Content</a>
+       <a href="account.html">Account</a>
+        <a href="leaderboard.html">Leaderboard</a>
+          <a href="feedback.html">Feedback</a>
+           <a href="sign.html">Sign out</a>
+    </nav>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <span class="search-icon" id="searchBtn">🔍</span>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD CONTAINER -->
+    <main class="dashboard-container">
+        
+        <!-- Left Column: Student Card Summary -->
+        <section class="profile-card">
+            <!-- Dynamic Avatar Placeholder -->
+        
+            <h2 id="profileName">{{ student.name if student and student.name else 'Student' }}</h2>
+            <span class="username" id="profileHandle">@{{ student.username if student and student.username else (student.email.split('@')[0] if student and student.email else 'student') }}</span>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="number" id="coursesTrackedValue">4</span>
+                    <span class="label">Courses Tracked</span>
+                </div>
+                <div class="stat-box">
+                    <span class="number">2</span>
+                    <span class="label">Certificates</span>
+                </div>
+                <div class="stat-box">
+                    <span class="number" id="quizPointsValue">1,420</span>
+                    <span class="label">Quiz Points</span>
+                </div>
+                <div class="stat-box">
+                    <span class="number" id="leaderboardRankValue">#12</span>
+                    <span class="label">Leaderboard Rank</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Column: Account Management & Tracking -->
+        <section class="settings-panel">
+            
+            <!-- Credentials Section -->
+            <h3>Account Settings</h3>
+            <form action="{{ url_for('account_page') }}" method="POST">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" value="{{ student.name if student and student.name else '' }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" value="{{ student.email if student else '' }}" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="password">New Password</label>
+            <input type="password" id="password" name="password" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••">
+        </div>
+    </div>
+    
+    <button type="submit" class="save-btn">Update Profile</button>
+</form>
+
+            <!-- Learning Metrics / Tracks Section -->
+            <div class="courses-section">
+                <h3>Your Course Progress</h3>
+                
+                <!-- Python Track -->
+                <div class="course-progress-card">
+                    <div class="course-info">
+                        <h4>Python Core</h4>
+                    </div>
+                    <div class="progress-wrapper">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 85%;"></div>
+                        </div>
+                        <span class="percentage">85%</span>
+                    </div>
+                </div>
+
+                <!-- HTML Track -->
+                <div class="course-progress-card">
+                    <div class="course-info">
+                        <h4>HTML Structural Design</h4>
+                    </div>
+                    <div class="progress-wrapper">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 100%; background-color: gold;"></div>
+                        </div>
+                        <span class="percentage" style="color: #b59410; font-weight: bold;">100%</span>
+                    </div>
+                </div>
+
+                <!-- JavaScript Track -->
+                <div class="course-progress-card">
+                    <div class="course-info">
+                        <h4>JavaScript Logic</h4>
+                    </div>
+                    <div class="progress-wrapper">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 45%;"></div>
+                        </div>
+                        <span class="percentage">45%</span>
+                    </div>
+                </div>
+
+                <!-- CSS Track -->
+                <div class="course-progress-card">
+                    <div class="course-info">
+                        <h4>CSS Flexbox & Layouts</h4>
+                    </div>
+                    <div class="progress-wrapper">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width: 100%; background-color: gold;"></div>
+                        </div>
+                        <span class="percentage" style="color: #b59410; font-weight: bold;">100%</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function loadAccountInfo() {
+            const studentName = localStorage.getItem('studentName') || 'Student';
+            const handleName = studentName.trim().toLowerCase().replace(/\s+/g, '_');
+            const coursesTracked = localStorage.getItem('coursesTracked') || '4';
+            const quizPoints = localStorage.getItem('quizPoints') || '1,420';
+            const leaderboardRank = localStorage.getItem('leaderboardRank') || '12';
+
+            document.getElementById('profileName').textContent = studentName;
+            document.getElementById('profileHandle').textContent = '@' + handleName;
+            document.getElementById('fullName').value = studentName;
+            document.getElementById('coursesTrackedValue').textContent = coursesTracked;
+            document.getElementById('quizPointsValue').textContent = quizPoints;
+            document.getElementById('leaderboardRankValue').textContent = '#' + leaderboardRank.replace(/^#?/, '');
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAccountInfo);
+    </script>
+</body>
+</html>
+

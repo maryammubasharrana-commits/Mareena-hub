@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARENA.HUB | Interactive Portal</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='content.css') }}">
+    <!-- Using Google Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <head>
+<body>
+      
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">
+        <img src="logo.png" alt="logo">
+        <div>
+            <h2>MARENA-HUB</h2>
+            <small>Learning Platform</small>
+        </div>
+    </div>
+
+    <nav class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+          <a href="content.html">Content</a>
+       <a href="account.html">Account</a>
+        <a href="leaderboard.html">Leaderboard</a>
+          <a href="feedback.html">Feedback</a>
+           <a href="sign.html">Sign out</a>
+    </nav>
+
+   <div class="search-box">
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="Search...">
+
+    <span
+    class="search-icon"
+    id="searchBtn">
+
+    🔍
+
+    </span>
+
+</div>
+</header>
+
+        <h1>Contents:</h1>
+        
+
+        <div class="grid">
+            <a href="video1.html" class="card">
+            <img src="python.png" class="card-img" id="py-img" style="width: 85%; height: 190px; display: block; margin: 20px auto;object-fit:cover;border-radius:18px;">
+                <h3>Python Programming</h3>
+            <p>Master the versatility of Python to build everything from simple automation scripts to complx data models. It is the perfect language for beginners due to its readable syntax and powerfrul libraries.</p></a>
+            <a href="video2.html" class="card">
+            <img src="html.png" class="card-img" id="py-img" style="width: 85%; height: 190px; display: block; margin: 20px auto;object-fit:cover;border-radius:18px;">
+                <h3>HTML Structure</h3>
+            <p>Learn to build the essential skeleton of the web using semantic tags that organize your content for browsers. This foundation is critical for creating accessible well strauctured didgital experiences.</p></a>
+            <a href="video3.html" class="card"> <img src="js.png" class="card-img" id="py-img" style="width: 85%; height: 190px; display: block; margin: 20px auto;object-fit:cover;border-radius:18px;">
+                <h3>Java Script</h3>
+            <p>Transform static pages into interactive applications by mastering the logic and functions that drive modern websites. JavaScript allows you to handle user input, fetch data, and create dynamic updates in real-time.</p></a>
+            <a href="video4.html" class="card"><img src="css3.png" class="card-img" id="py-img" style="width: 85%; height: 190px; display: block; margin: 20px auto;object-fit:cover;border-radius:18px;">
+           <h3>CSS Structure</h3>
+                <p>Learn to style your web pages with CSS, the language that brings visual appeal and layout control to your content. Master selectors, properties, and modern layout techniques to create stunning designs.</p></a>
+        </div>
+    </div>
+    
+</body>
+<!-- Trifold Footer Section -->
+
+<footer class="info-section">
+
+    <div class="info-box">
+
+        <!-- About -->
+        <div class="info-card">
+            <h2>About Us</h2>
+            <p>
+               Welcome to MARENA-HUB, your ultimate companion in mastering modern programming languages 
+               and web technologies. Whether you are taking your first steps into coding with HTML and CSS,
+                or diving deep into logic with Python and JavaScript, we provide the path to clear, structured mastery.
+                We focus on delivering quality educational content with a modern and user-friendly interface.
+            </p>
+        </div>
+
+        <!-- Platform -->
+        <div class="info-card">
+            <h2>Platform Info</h2>
+            <p>
+              The main objective  of this website is to deliver quality educational content in a simple and understandable way.
+             The website is built with a modern and responsive design to ensure a smooth experience on both desktop and mobile devices. 
+             It focuses on user-friendly navigation, attractive layouts, and efficient performance. Our goal is to make learning accessible, 
+             engaging, and effective for everyone.
+            </p>
+        </div>
+
+        <!-- Makers -->
+        <div class="info-card">
+            <h2>Help</h2>
+            <p>For help contact us on this Email
+                address or use contact number given below: </p>
+                <div>
+                    <br>
+                    <br>
+            <h4>Email : "Marena-hub@outlook.com"
+                </h4>
+             </div>
+             <br>
+            <br>
+            <h4>Contact number : +923428826227</h4>
+            <br>
+            <a href="Contact.html"
+            class = "next-btn"><h4>Contact us :</h4><p style="font-style:italic;" >CLICK</p></a>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 LearnHub Platform | All Rights Reserved</p>
+    </div>
+
+</footer>
+  <script>
+    /* SEARCH FUNCTION */
+
+function performSearch(){
+
+    let value =
+    document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    /* SEARCH PAGES */
+    if(value.includes("home")){
+        window.location.href = "home.html";
+    }
+    if(value.includes("content")){
+        window.location.href = "content.html";
+    }
+
+    if(value.includes("python")){
+        window.location.href = "video1.html";
+    }
+
+    else if(value.includes("html")){
+        window.location.href = "video2.html";
+    }
+
+    else if(value.includes("javascript")){
+        window.location.href = "video3.html";
+    }
+    else if(value.includes("css")){
+        window.location.href = "video4.html";
+    }
+    if(value.includes("learderboard")){
+        window.location.href = "leaderboard.html";
+    }
+
+    else if(value.includes("certificate")){
+        window.location.href = "certificate.html";
+    }
+    if(value.includes("feedback")){
+        window.location.href = "feedback.html";
+    }
+       if(value.includes("account")){
+        window.location.href = "account.html";
+    }
+    if(value.includes("contact")){
+        window.location.href = "contact.html";
+    }
+
+    if(value.includes("about")){
+        window.location.href = "about.html";
+    }
+    else{
+        alert("Page not found");
+    }
+}
+
+/* ENTER KEY SEARCH */
+
+document
+.getElementById("searchInput")
+
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+        performSearch();
+    }
+
+});
+
+/* MAGNIFYING GLASS CLICK SEARCH */
+
+document
+.getElementById("searchBtn")
+
+.addEventListener("click", function(){
+
+    performSearch();
+
+});
+</script>
+</html>
+
